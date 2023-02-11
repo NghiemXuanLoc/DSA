@@ -1,0 +1,55 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int a[10000005];
+
+void sang()
+{
+    for (int i = 0; i <= 10000000; i++)
+    {
+        a[i] = 1;
+    }
+    a[0] = a[1] = 0;
+    for (int i = 2; i <= sqrt(10000000); i++)
+    {
+        for (int j = i * i; j <= 10000000; j += i)
+        {
+            a[j] = 0;
+        }
+    }
+}
+
+bool check(int n)
+{
+    int temp = n % 10;
+    int res = n / 10;
+    while (res)
+    {
+        if (temp < (res % 10))
+        {
+            return false;
+        }
+        res /= 10;
+    }
+    return true;
+}
+
+int main()
+{
+    sang();
+    int n;
+    cin >> n;
+    int cnt = 0;
+    for (int i = 0; i <= n; i++)
+    {
+        if (a[i] && check(i))
+        {
+            cout << i << " ";
+            cnt++;
+        }
+    }
+    cout << endl;
+    cout << cnt << endl;
+}
